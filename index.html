@@ -235,6 +235,10 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-md-6">
+            <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+              <strong>Thank You!</strong> Your Message has been received
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <form name="submit-to-google-sheet">
               <div class="form-group mb-3">
                 <label for="name">Full Name</label>
@@ -249,7 +253,12 @@
                 <textarea class="form-control" name="message" id="message" rows="3"></textarea>
               </div>
 
-              <button type="submit" class="btn btn-success">Sent</button>
+              <button type="submit" class="btn btn-primary btn-sent">Sent</button>
+
+              <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
             </form>
           </div>
         </div>
@@ -329,11 +338,28 @@
     <script>
       const scriptURL = "https://script.google.com/macros/s/AKfycbw1PhEYTsOJXEscMpKBdfAdyXXq0mKJC80w9haVK1pHLjkAk_tWZIpgkTOXje7Z8wB0/exec";
       const form = document.forms["submit-to-google-sheet"];
+      const btnSent = document.querySelector(".btn-sent");
+      const btnLoading = document.querySelector(".btn-loading");
+      const myAlert = document.querySelector(".my-alert");
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+
+        btnSent.classList.toggle("d-none");
+        btnLoading.classList.toggle("d-done");
+
         fetch(scriptURL, { method: "POST", body: new FormData(form) })
-          .then((response) => console.log("Success!", response))
+          .then((response) => {
+            //when submit button click
+            //show loading button, remove sent button
+            btnSent.classList.toggle("d-none");
+            btnLoading.classList.toggle("d-done");
+            //show alert
+            myAlert.classList.toggle("d-none");
+            //reset the form
+            form.reset();
+            console.log("Success!", response);
+          })
           .catch((error) => console.error("Error!", error.message));
       });
     </script>
