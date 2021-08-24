@@ -1,18 +1,26 @@
-body{
-    /* min-height: 2000px; */
-    scroll-behavior: smooth;
+body {
+  /* min-height: 2000px; */
+  scroll-behavior: smooth;
 }
 
-.jumbotron{
-    /* padding: 2rem 1rem; */
-    padding-top: 5rem;
-    background-color: #e2edff;
+.jumbotron {
+  /* padding: 2rem 1rem; */
+  padding-top: 5rem;
+  background-color: #e2edff;
 }
 
-#project{
-    background-color: #e2edff;
+#project {
+  background-color: #e2edff;
 }
 
-section{
-    padding-top: 5rem;
+section {
+  padding-top: 5rem;
+}
+
+.gallery-img {
+  width: 100%;
+}
+
+#gallery .row > * {
+  padding: 0;
 }
