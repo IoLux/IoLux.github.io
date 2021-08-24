@@ -235,14 +235,14 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <form action="mailto:billyyuriaan@student.telkomuniversity.ac.id" method="post" enctype="text/plain">
+            <form name="submit-to-google-sheet">
               <div class="form-group mb-3">
                 <label for="name">Full Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="name" />
+                <input type="text" name="name" class="form-control" id="name" aria-describedby="name" />
               </div>
               <div class="form-group mb-3">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" aria-describedby="email" />
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="email" />
               </div>
               <div class="form-group mb-3">
                 <label for="message">Message</label>
@@ -326,5 +326,16 @@
       });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbw1PhEYTsOJXEscMpKBdfAdyXXq0mKJC80w9haVK1pHLjkAk_tWZIpgkTOXje7Z8wB0/exec";
+      const form = document.forms["submit-to-google-sheet"];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => console.log("Success!", response))
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>
